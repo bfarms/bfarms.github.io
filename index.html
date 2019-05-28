@@ -50,7 +50,7 @@
 
           var counter = 0; //used for location to place new row in csv_rows array
 
-          Papa.parse("all_activities.csv", {
+          Papa.parse("https://bfarms.github.io/csvs/all_activities.csv", {
                download: true,
                step: function (row) {
                     //console.log("Row:", row.data);
