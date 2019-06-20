@@ -138,21 +138,13 @@ function addColorToTaskStatus(tableclass)
   {
     var current_row = tableBody.rows[i];
     var col = current_row.cells[column_of_task_status]; //this is the location of task status at the current row !!HARDCODED!!
-    if (col.innerHTML == "IN-PROGRESS-NO-DUE-DATE" || col.innerHTML == "IN-PROGRESS-GOOD")
+    if (col.innerHTML == "In Progress")
     {
-      setTableElemColor(tableclass, i, column_of_task_status, "#D7DF01"); //d7df01 dark yellow if in-progress and not late (or no due date set)
+      setTableElemColor(tableclass, i, column_of_task_status, "#D7DF01"); //d7df01 dark yellow if in-progress
     }
-    else if (col.innerHTML == "COMPLETE-LATE")
+    else if (col.innerHTML == "Complete")
     {
-      setTableElemColor(tableclass, i, column_of_task_status, "#86B404"); //change to green-yellow if complete but late
-    }
-    else if (col.innerHTML == "COMPLETE-ON-TIME" || col.innerHTML == "COMPLETE-NO-DUE-DATE")
-    {
-      setTableElemColor(tableclass, i, column_of_task_status, "#088A08"); //changes to dark green if complete and on time (or no due date set)
-    }
-    else if (col.innerHTML == "IN-PROGRESS-LATE")
-    {
-      setTableElemColor(tableclass, i, column_of_task_status, "#FF0000"); //changes to red if in progress and late
+      setTableElemColor(tableclass, i, column_of_task_status, "#088A08"); //change to dark green if complete
     }
     else
     {
