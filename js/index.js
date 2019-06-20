@@ -146,6 +146,10 @@ function addColorToTaskStatus(tableclass)
     {
       setTableElemColor(tableclass, i, column_of_task_status, "#088A08"); //change to dark green if complete
     }
+    else if (col.innerHTML == "To Do")
+    {
+      setTableElemColor(tableclass, i, column_of_task_status, "#87CEFA"); //change to blue if todo
+    }
     else
     {
       setTableElemColor(tableclass, i, column_of_task_status, "#848484"); //change to gray if none of the above
