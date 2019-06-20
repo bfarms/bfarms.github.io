@@ -67,7 +67,7 @@
                          );
                          tableCreation(tableName, csv_rows.length); //create table with class name tab1 with the rows and columns (empty)
                          populateTable(tableName, csv_rows); //adds text to the rows of the table
-                         addColorToTaskStatus(tableName); //adds color to task status portion of table
+                         //addColorToTaskStatus(tableName); //adds color to task status portion of table
 
                          $(document).ready(function () { //after the table has been created, we use DataTable to make the table searchable and sortable (we have to have our table in the conventional format first, then DataTables wraps its stuff around the table)
                               $('#' + tableName).DataTable({
