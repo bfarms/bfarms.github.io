@@ -111,12 +111,21 @@ function changeTableText(tableclass, rowNum, colNum, text)
   col.innerHTML = text;
 }
 
+function changeTaskText(tableclass, rowNum, colNum, text, activity_id)
+//changes the text on a table of user-defined class and the (row,col) coordinates of that table (note: table headers th don't count as a row)
+{
+  var tableBody = document.getElementsByClassName(tableclass)[0].getElementsByTagName('tbody')[0]; //gets body of table by finding table in document with tableclass, then finding the body of that table
+  var row = tableBody.rows[rowNum]; //number of rows in tableBody
+  var col = row.cells[colNum];
+  col.innerHTML = "<a href='https://us.agworld.co/jobs/" + activity_id + "'>" + text + "</a>";
+}
+
 function setTableElemColor(tableclass, rowNum, colNum, color)
 //changes the background color of specific (row,col) location of a table
 {
   var tableBody = document.getElementsByClassName(tableclass)[0].getElementsByTagName('tbody')[0]; //gets body of table by finding table in document with tableclass, then finding the body of that table
-  var row = tableBody.rows[rowNum]; //number of rows in tableBody
-  var elemToChange = row.cells[colNum];
+  var row = tableBody.rows[rowNum]; //gets row from table body
+  var elemToChange = row.cells[colNum]; //gets specific column from row
   elemToChange.setAttribute("bgcolor", color);
   //console.log(tableclass + " at (" + rowNum + "," + colNum + ") changed to " + color);
   // all need to be in quotes, color needs to be in form of "#000000"
@@ -161,7 +170,7 @@ function populateTable(tableclass, csv_rows)
 {
   for (var i = 0; i < (csv_rows.length - 2); i++) //offset i by 1 to account for top header of CSV file (which is at csv_rows[0]), csv_rows.length offset by 2 because of the i offset and the fact that PapaParse seems to include an extra blank line in the end of the CSV file
   {
-    changeTableText(tableclass, i, 0, csv_rows[i + 1][1]); //task_name
+    changeTaskText(tableclass, i, 0, csv_rows[i + 1][1], csv_rows[i + 1][0]); //task_name and activitiy id for clickable link
     changeTableText(tableclass, i, 1, csv_rows[i + 1][4]); //farm_name
     changeTableText(tableclass, i, 2, csv_rows[i + 1][5]); //field_name
     changeTableText(tableclass, i, 3, csv_rows[i + 1][6]); //job_status
