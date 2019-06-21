@@ -117,7 +117,7 @@ function changeTaskText(tableclass, rowNum, colNum, text, activity_id)
   var tableBody = document.getElementsByClassName(tableclass)[0].getElementsByTagName('tbody')[0]; //gets body of table by finding table in document with tableclass, then finding the body of that table
   var row = tableBody.rows[rowNum]; //number of rows in tableBody
   var col = row.cells[colNum];
-  col.innerHTML = "<a href='https://us.agworld.co/jobs/" + activity_id + "' target='_blank'>" + text + "</a>";
+  col.innerHTML = "<a href='https://us.agworld.co/jobs/" + activity_id + "' target='_blank' >" + text + "</a>";
 }
 
 function setTableElemColor(tableclass, rowNum, colNum, color)
