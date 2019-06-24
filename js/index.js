@@ -102,6 +102,87 @@ function tableCreation(tableclass, csv_rows_length)
   body.appendChild(tablee); //place the entire table in HTML body
 }
 
+function statsTableCreation(tableclass, stats_rows_length)
+//creates a table with user-defined class name with 6 table headers
+//creates all of the rows (and columns by necessity) based on the amount of csv rows there are for the table, which will be filled later by populateTable
+//note: tableclass must be in quotes
+{
+  var body = document.body;
+  tablee = document.createElement("table");
+  //tablee.style.width = "100%";
+  //tablee.style.border = "1px solid white";
+  tablee.setAttribute('class', tableclass); //!!!! this is important for finding the table (and, by association, table body) in other functions !!!!
+  tablee.setAttribute('id', tableclass);
+
+  /* table head creation */
+  var table_head = document.createElement("thead");
+  table_head.setAttribute('class', tableclass + '_head');
+
+  var table_header_row = document.createElement("tr"); //because the head is supposed to, by convention, contain a row (tr) of columns (th)
+  table_header_row.setAttribute('class', tableclass + '_header_row');
+
+  var table_header = document.createElement('th');
+  table_header.setAttribute('class', tableclass + '_header');
+  table_header.setAttribute('id', 'stat_field_name');
+  table_header.innerHTML = "Field Name";
+  //table_header.style.border = "1px solid white";
+  table_header_row.appendChild(table_header); //append table header to thead
+
+  table_header = document.createElement('th');
+  table_header.setAttribute('class', tableclass + '_header');
+  table_header.setAttribute('id', 'stat_task_status');
+  table_header.innerHTML = "Task Status";
+  //table_header.style.border = "1px solid white";
+  table_header_row.appendChild(table_header); //append table header to thead
+
+  table_header = document.createElement('th');
+  table_header.setAttribute('class', tableclass + '_header');
+  table_header.setAttribute('id', 'stat_num_task');
+  table_header.innerHTML = "# Tasks With Status";
+  //table_header.style.border = "1px solid white";
+  table_header_row.appendChild(table_header); //append table header to row
+
+  table_header = document.createElement('th');
+  table_header.setAttribute('class', tableclass + '_header');
+  table_header.setAttribute('id', 'stat_percentage');
+  table_header.innerHTML = "Percentage";
+  //table_header.style.border = "1px solid white";
+  table_header_row.appendChild(table_header); //append table header to row
+
+  table_head.appendChild(table_header_row); //append table row (with all of the headers) to head
+  tablee.appendChild(table_head); //append table head to table
+
+  console.log("Created new table with " + (table_header_row.getElementsByTagName('th').length) + " columns with class name " + tableclass);
+
+  /* table body creation */
+  var tableBody = document.createElement("tbody");
+  tableBody.setAttribute("class", tableclass + "_body");
+  tableBody.setAttribute("id", tableclass + "_body");
+  var numCols = tablee.getElementsByTagName('th').length; //number of columns currently in table (th)
+
+  /* rows creation */
+  for (var i = 0; i < stats_rows_length - 2; i++) //i=0 to account for top header of CSV file (which is at csv_rows[0]), csv_rows.length offset by 2 because of the that PapaParse seems to include an extra blank line in the end of the CSV file
+  {
+    var tableRow = document.createElement('tr'); //create a row
+    tableRow.setAttribute('class', tableclass + '_row');
+    tableRow.setAttribute('id', i);
+
+    for (var j = 0; j < numCols; j++)
+    {
+      var newCol = document.createElement('td'); //td = columns
+      newCol.setAttribute('class', tableclass + '_non_header_col');
+      newCol.setAttribute('id', 'row' + i + '-col' + j); //id is in form: row[rowNumber]-col[colNumber], starts with 0, hence i-1 offset
+      tableRow.appendChild(newCol); //place the new column in current row
+    }
+    tableBody.appendChild(tableRow); //place the entire current row (with columns) in table body
+  }
+
+  console.log("Created " + (stats_rows_length - 2) + " rows, each with " + numCols + " columns");
+
+  tablee.appendChild(tableBody); //place the entire body (with rows) in table
+  body.appendChild(tablee); //place the entire table in HTML body
+}
+
 function changeTableText(tableclass, rowNum, colNum, text)
 //changes the text on a table of user-defined class and the (row,col) coordinates of that table (note: table headers th don't count as a row)
 {
@@ -179,4 +260,16 @@ function populateTable(tableclass, csv_rows)
     changeTableText(tableclass, i, 6, csv_rows[i + 1][7]); //author_name
   }
   console.log("Populated table with " + (csv_rows.length - 2) + " rows of data");
+}
+
+function populateStatsTable(tableclass, stats_rows)
+{
+  for (var i = 0; i < (stats_rows.length - 2); i++) //offset i by 1 to account for top header of CSV file (which is at csv_rows[0]), csv_rows.length offset by 2 because of the i offset and the fact that PapaParse seems to include an extra blank line in the end of the CSV file
+  {
+    changeTableText(tableclass, i, 0, stats_rows[i + 1][0]); //field name
+    changeTableText(tableclass, i, 1, stats_rows[i + 1][1]); //task status
+    changeTableText(tableclass, i, 2, stats_rows[i + 1][2]); //tasks with that task status
+    changeTableText(tableclass, i, 3, stats_rows[i + 1][3]); //percentage
+  }
+  console.log("Populated table with " + (stats_rows.length - 2) + " rows of data");
 }
