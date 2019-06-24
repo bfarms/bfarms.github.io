@@ -70,16 +70,20 @@
                          $(document).ready(function () { //after the table has been created, we use DataTable to make the table searchable and sortable (we have to have our table in the conventional format first, then DataTables wraps its stuff around the table)
                               $('#' + tableName).DataTable({
                                    "order": [], //no order by default for the table
-                                   "pageLength": -1, //default number of rows in a page is all
+                                   "pageLength": 25, //default number of rows in a page is all
                                    "lengthMenu": [
                                         [
                                              5,
                                              10,
+                                             25,
+                                             100,
                                              -1
                                         ],
                                         [
                                              5,
                                              10,
+                                             25,
+                                             100,
                                              "All"
                                         ]
                                    ], //menu of selectable table row lengths
@@ -88,6 +92,10 @@
                          });
                     }
                });
+               var referral = document.createElement("p"); //needed to create it here in JS so it doesn't display if there isn't JS
+               referral.setAttribute('id', 'referral');
+               referral.innerHTML = "<a href='index.html'>Go To Home</a>";
+               document.body.appendChild(referral);
           </script>
      </body>
 

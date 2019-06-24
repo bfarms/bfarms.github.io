@@ -100,7 +100,13 @@
                          });
                     }
                });
+
+               var referral = document.createElement("p"); //needed to create it here in JS so it doesn't display if there isn't JS
+               referral.setAttribute('id', 'referral');
+               referral.innerHTML = "<a href='stats.html'>Go To Field Statistics</a>";
+               document.body.appendChild(referral);
           </script>
+
      </body>
 
 </html>

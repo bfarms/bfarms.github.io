@@ -28,14 +28,11 @@ h1
 {
   text-align: center;
   width: 100%;
-  border: 1px solid white;
+  border: 1px solid black;
 }
 
-.tabName
-{
-  text-align: left;
-  width: 100%;
-  border: 1px solid black;
+.taskList a {
+  text-decoration: none;
 }
 
 .taskList_head, .fieldStats_head
@@ -51,4 +48,13 @@ tr:nth-child(even) {
   font-size: 30px;
   font-weight: bold;
   text-align: center;
+}
+
+#referral {
+  font-size: 20px;
+  text-align: center;
+}
+
+#referral a {
+  text-decoration: none;
 }
