@@ -66,11 +66,16 @@
                          );
                          statsTableCreation(tableName, stats_rows.length); //create table with class name tab1 with the rows and columns (empty)
                          populateStatsTable(tableName, stats_rows); //adds text to the rows of the table
+                         
+                         var referral = document.createElement("p"); //needed to create it here in JS so it doesn't display if there isn't JS
+                         referral.setAttribute('id', 'referral');
+                         referral.innerHTML = "<a href='index.html'>Go To Home</a>";
+                         document.body.appendChild(referral);
 
                          $(document).ready(function () { //after the table has been created, we use DataTable to make the table searchable and sortable (we have to have our table in the conventional format first, then DataTables wraps its stuff around the table)
                               $('#' + tableName).DataTable({
                                    "order": [], //no order by default for the table
-                                   "pageLength": 25, //default number of rows in a page is all
+                                   "pageLength": 25, //default number of rows in a page is 25
                                    "lengthMenu": [
                                         [
                                              5,
@@ -92,10 +97,6 @@
                          });
                     }
                });
-               var referral = document.createElement("p"); //needed to create it here in JS so it doesn't display if there isn't JS
-               referral.setAttribute('id', 'referral');
-               referral.innerHTML = "<a href='index.html'>Go To Home</a>";
-               document.body.appendChild(referral);
           </script>
      </body>
 

@@ -69,6 +69,11 @@
                          populateTable(tableName, csv_rows); //adds text to the rows of the table
                          addColorToTaskStatus(tableName); //adds color to task status portion of table
 
+                         var referral = document.createElement("p"); //needed to create it here in JS so it doesn't display if there isn't JS
+                         referral.setAttribute('id', 'referral');
+                         referral.innerHTML = "<a href='stats.html'>Go To Field Statistics</a>";
+                         document.body.appendChild(referral);
+
                          $(document).ready(function () { //after the table has been created, we use DataTable to make the table searchable and sortable (we have to have our table in the conventional format first, then DataTables wraps its stuff around the table)
                               $('#' + tableName).DataTable({
                                    "order": [], //no order by default for the table
@@ -100,11 +105,6 @@
                          });
                     }
                });
-
-               var referral = document.createElement("p"); //needed to create it here in JS so it doesn't display if there isn't JS
-               referral.setAttribute('id', 'referral');
-               referral.innerHTML = "<a href='stats.html'>Go To Field Statistics</a>";
-               document.body.appendChild(referral);
           </script>
 
      </body>
