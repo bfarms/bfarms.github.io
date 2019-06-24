@@ -43,55 +43,43 @@
 
           <script type="text/javascript">
                var header = document.createElement("h1"); //needed to create it here in JS so it doesn't display if there isn't JS
-               header.innerHTML = "Task List";
+               header.innerHTML = "Field Statistics";
                document.body.appendChild(header);
 
-               var tableName = "taskList";
-               var csv_rows = new Array(); //no size arg means it's a dynamically sized array
+               var tableName = "fieldStats";
+               var stats_rows = new Array(); //no size arg means it's a dynamically sized array
                // this array will hold arrays from the rows of the CSV files (basically array of arrays lol)
-
                var counter = 0; //used for location to place new row in csv_rows array
 
-               Papa.parse("https://bfarms.github.io/csvs/all_activities.csv", {
+               Papa.parse("https://bfarms.github.io/csvs/field_statistics.csv", {
                     download: true,
                     step: function (row) {
                          //console.log("Row:", row.data);
-                         csv_rows[counter] = row.data[0]; //[0] because there's other pieces of metadata that PapaParse has as well (data[0] is the array itself)
+                         stats_rows[counter] = row.data[0]; //[0] because there's other pieces of metadata that PapaParse has as well (data[0] is the array itself)
                          counter = counter + 1; //increment counter so that for placement of next row of items
                     },
                     complete: function () { //must do the rest of the functions here because this is asynchronous (the things outside of this function will complete most likely complete before this completes)
                          console.log("All done parsing CSV file!");
                          console.log(
-                              "We now have a " + csv_rows.length + " x " + csv_rows[0].length + " array (yes, this includes the first row [aka column names] of the CSV and, for some odd reason, an extra blank line at the end of the CSV (dw, I've offset values to account for thes" +
+                              "We now have a " + stats_rows.length + " x " + stats_rows[0].length + " array (yes, this includes the first row [aka column names] of the CSV and, for some odd reason, an extra blank line at the end of the CSV (dw, I've offset values to account for thes" +
                               "e))"
                          );
-                         tableCreation(tableName, csv_rows.length); //create table with class name tab1 with the rows and columns (empty)
-                         populateTable(tableName, csv_rows); //adds text to the rows of the table
-                         addColorToTaskStatus(tableName); //adds color to task status portion of table
+                         statsTableCreation(tableName, stats_rows.length); //create table with class name tab1 with the rows and columns (empty)
+                         populateStatsTable(tableName, stats_rows); //adds text to the rows of the table
 
                          $(document).ready(function () { //after the table has been created, we use DataTable to make the table searchable and sortable (we have to have our table in the conventional format first, then DataTables wraps its stuff around the table)
                               $('#' + tableName).DataTable({
                                    "order": [], //no order by default for the table
-                                   "pageLength": 100, //default number of rows in a page is 100
+                                   "pageLength": -1, //default number of rows in a page is all
                                    "lengthMenu": [
                                         [
                                              5,
                                              10,
-                                             25,
-                                             50,
-                                             100,
-                                             500,
-                                             1000,
                                              -1
                                         ],
                                         [
                                              5,
                                              10,
-                                             25,
-                                             50,
-                                             100,
-                                             500,
-                                             1000,
                                              "All"
                                         ]
                                    ], //menu of selectable table row lengths
